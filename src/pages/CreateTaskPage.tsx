@@ -1,15 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useModalContext } from "@/contexts/ModalContext";
-import { useLoggedInUserTasks } from "@/contexts/loggedInUserTasksContext";
 import api from "@/services/api.service";
 import { X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
 function CreateTaskPage() {
-  const { setLoggedInUserTasks } = useLoggedInUserTasks();
-  const { setModal } = useModalContext();
   const navigate = useNavigate();
 
   async function handleCreateTask(ev) {
@@ -26,9 +22,7 @@ function CreateTaskPage() {
 
     try {
       const newTask = await api.post("/task", data);
-      setLoggedInUserTasks((prevTasks) => {
-        return [...prevTasks, newTask];
-      });
+
       navigate("/tasks");
       setModal("successCreateTask");
       setTimeout(() => {

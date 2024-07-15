@@ -9,21 +9,19 @@ import TasksLayout from "./layouts-pages/TasksLayout";
 import { useAuth } from "./contexts/AuthContext";
 import AboutPage from "./pages/AboutPage";
 import NavBar from "./components/react-omponenets/NavBar";
-import { useModalContext } from "./contexts/ModalContext";
 import Modal from "./components/ui/Modal";
 import CreateTaskPage from "./pages/CreateTaskPage";
 import { Button } from "./components/ui/button";
 import Footer from "./components/react-omponenets/Footer";
-import IndicationModals from "./components/react-omponenets/IndicationModals";
 import ActivityPage from "./pages/ActivityPage";
 import ArchivePage from "./pages/ArchivePage";
+import React from "react";
 
 function App() {
   const { loggedInUser } = useAuth();
-  const { modal, setModal } = useModalContext();
   const { logout } = useAuth();
 
-  function ProtectedLoggedInRoute({ children }) {
+  function ProtectedLoggedInRoute({ children }: { children: React.ReactNode }) {
     // in real world, loggedInUser will consume from AuthContext
     if (loggedInUser === null) {
       return <Navigate to="/auth/login" />;
@@ -31,7 +29,11 @@ function App() {
 
     return children;
   }
-  function ProtectedLoggedOutRoute({ children }) {
+  function ProtectedLoggedOutRoute({
+    children,
+  }: {
+    children: React.ReactNode;
+  }) {
     // in real world, loggedInUser will consume from AuthContext
     if (loggedInUser) {
       return <Navigate to="/tasks" />;
@@ -41,14 +43,14 @@ function App() {
   }
   return (
     <>
-      <div
+      {/* <div
         className={
           modal === "logout"
             ? "fixed top-0 bottom-0 right-0 left-0 bg-slate-700 opacity-70 "
             : ""
         }
-      ></div>
-      {modal === "logout" ? (
+      ></div> */}
+      {/* {modal === "logout" ? (
         <Modal className="flex flex-col p-10 top-1/2 gap-10">
           <p className="text-xl">Are yo sure you want to logout?</p>
           <div className="flex justify-center gap-4">
@@ -58,9 +60,9 @@ function App() {
             <Button onClick={() => setModal(null)}>Cancel</Button>
           </div>
         </Modal>
-      ) : null}
+      ) : null} */}
       <div>
-        <IndicationModals />
+        {/* <IndicationModals /> */}
         <NavBar />
         <Routes>
           <Route path="/" element={<HomePage />} />

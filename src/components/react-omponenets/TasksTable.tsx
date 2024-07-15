@@ -8,13 +8,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useLoggedInUserTasks } from "@/contexts/loggedInUserTasksContext";
+// import { useLoggedInUserTasks } from "@/contexts/loggedInUserTasksContext";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Pin, QrCode } from "lucide-react";
 
-function TasksTable() {
-  const { loggedInUserTasks, setLoggedInUserTasks } = useLoggedInUserTasks();
+function TasksTable({ loggedInUserTasks }) {
   const pinnedTasks = loggedInUserTasks.filter((task) => task.isPinned);
   const otherTasks = loggedInUserTasks.filter((task) => !task.isPinned);
   return (

@@ -1,15 +1,12 @@
 import { useAuth } from "@/contexts/AuthContext";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { useModalContext } from "@/contexts/ModalContext";
-// import { ModeToggle } from "../ui/mode-toggle";
-import { Archive, BookOpenText, ListChecks, Underline } from "lucide-react";
+import { Archive, BookOpenText, ListChecks } from "lucide-react";
 
 function NavBar() {
   const { loggedInUser } = useAuth();
-  const { setModal } = useModalContext();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {

@@ -2,8 +2,7 @@ import { useLoggedInUserTasks } from "@/contexts/loggedInUserTasksContext";
 import React from "react";
 import TasksList from "./TasksList";
 
-function TasksCards() {
-  const { loggedInUserTasks, setLoggedInUserTasks } = useLoggedInUserTasks();
+function TasksCards({ loggedInUserTasks }) {
   const pinnedTasks = loggedInUserTasks.filter((task) => task.isPinned);
   const otherTasks = loggedInUserTasks.filter((task) => !task.isPinned);
 

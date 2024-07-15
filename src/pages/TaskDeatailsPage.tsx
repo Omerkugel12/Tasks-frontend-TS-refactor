@@ -2,10 +2,9 @@ import TodoList from "@/components/react-omponenets/TodoList";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useModalContext } from "@/contexts/ModalContext";
 import api from "@/services/api.service";
 import { Pencil, Pin, PinOff, Trash2, X } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
 

@@ -1,27 +1,29 @@
-import React, { createContext, useState, useContext } from "react";
+// import React, { createContext, useState, useContext } from "react";
 
-const loggedInUserTasksContext = createContext(null);
+// interface loggedInUserTasksContextTypes {}
 
-export function LoggedInUserTasksProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const [loggedInUserTasks, setLoggedInUserTasks] = useState([]);
+// const loggedInUserTasksContext = createContext(null);
 
-  return (
-    <loggedInUserTasksContext.Provider
-      value={{ loggedInUserTasks, setLoggedInUserTasks }}
-    >
-      {children}
-    </loggedInUserTasksContext.Provider>
-  );
-}
+// export function LoggedInUserTasksProvider({
+//   children,
+// }: {
+//   children: React.ReactNode;
+// }) {
+//   const [loggedInUserTasks, setLoggedInUserTasks] = useState([]);
 
-export function useLoggedInUserTasks() {
-  const context = useContext(loggedInUserTasksContext);
-  if (!context) {
-    throw new Error("useAuth must be used within a UserProvider");
-  }
-  return context;
-}
+//   return (
+//     <loggedInUserTasksContext.Provider
+//       value={{ loggedInUserTasks, setLoggedInUserTasks }}
+//     >
+//       {children}
+//     </loggedInUserTasksContext.Provider>
+//   );
+// }
+
+// export function useLoggedInUserTasks() {
+//   const context = useContext(loggedInUserTasksContext);
+//   if (!context) {
+//     throw new Error("useAuth must be used within a UserProvider");
+//   }
+//   return context;
+// }

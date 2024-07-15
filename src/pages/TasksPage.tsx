@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
-import { useLoggedInUserTasks } from "@/contexts/loggedInUserTasksContext";
 import api from "@/services/api.service";
 import { Grid3X3, LayoutGrid } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -13,7 +12,7 @@ import CardsSkeleton from "@/components/react-omponenets/CardsSkeleton";
 
 function TasksPage() {
   const { loggedInUser } = useAuth();
-  const { loggedInUserTasks, setLoggedInUserTasks } = useLoggedInUserTasks();
+  const { loggedInUserTasks, setLoggedInUserTasks } = useState([]);
   const [display, setDisplay] = useState("cards");
   const [loading, setLoading] = useState(false);
 
@@ -64,7 +63,11 @@ function TasksPage() {
           <h1 className="text-5xl font-extrabold p-10">
             {loggedInUser && `${loggedInUser.firstName}'s Tasks`}
           </h1>
-          {display === "cards" ? <TasksCards /> : <TasksTable />}
+          {display === "cards" ? (
+            <TasksCards loggedInUserTasks={loggedInUserTasks} />
+          ) : (
+            <TasksTable loggedInUserTasks={loggedInUserTasks} />
+          )}
           {pinnedTasks.length === 0 && otherTasks.length === 0 && (
             <p>No Tasks yet...</p>
           )}

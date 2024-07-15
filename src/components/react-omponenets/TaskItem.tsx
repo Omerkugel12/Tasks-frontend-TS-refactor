@@ -1,12 +1,9 @@
-import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
 import { Pin } from "lucide-react";
-import { useModalContext } from "@/contexts/ModalContext";
 
 function TaskItem({ task }) {
-  const { modal } = useModalContext();
   return (
     <li
       className={
