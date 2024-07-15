@@ -15,9 +15,17 @@ export interface User {
   activity?: string[];
 }
 
+export interface UserToRegister {
+  username: FormDataEntryValue | null;
+  email: FormDataEntryValue | null;
+  password: FormDataEntryValue | null;
+  firstName: FormDataEntryValue | null;
+  lastName: FormDataEntryValue | null;
+}
+
 export interface UserCradantial {
-  username: string;
-  password: string;
+  username: FormDataEntryValue | null;
+  password: FormDataEntryValue | null;
 }
 
 export interface childrenPropsType {
@@ -28,7 +36,7 @@ interface AuthContextTypes {
   loggedInUser: User | null | undefined;
   login: (userData: UserCradantial) => void;
   logout: () => void;
-  register: (userData: User) => void;
+  register: (userData: UserToRegister) => void;
 }
 
 const AuthContext = createContext<AuthContextTypes | null>(null);
@@ -98,7 +106,7 @@ export const AuthProvider = ({ children }: childrenPropsType) => {
     }
   }
 
-  async function register(userData: User) {
+  async function register(userData: UserToRegister) {
     try {
       await api.post("/auth/register", userData);
     } catch (error) {

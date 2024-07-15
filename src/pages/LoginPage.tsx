@@ -9,17 +9,17 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth, UserCradantial } from "@/contexts/AuthContext";
 
 function LoginPage() {
   const { login } = useAuth();
 
-  function handleLoginSubmit(ev) {
+  function handleLoginSubmit(ev: React.FormEvent<HTMLFormElement>) {
     ev.preventDefault();
-    const formData = new FormData(ev.target);
+    const formData = new FormData(ev.currentTarget);
     const username = formData.get("username");
     const password = formData.get("password");
-    const data = { username, password };
+    const data: UserCradantial = { username, password };
 
     login(data);
   }
@@ -48,9 +48,7 @@ function LoginPage() {
                 placeholder="Enter Password..."
               ></Input>
             </div>
-            <Button>
-              <Link>Sign-in</Link>
-            </Button>
+            <Button>Sign-in</Button>
           </form>
         </CardContent>
         <CardFooter>

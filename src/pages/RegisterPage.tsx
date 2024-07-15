@@ -14,15 +14,21 @@ import { useAuth } from "@/contexts/AuthContext";
 function RegisterPage() {
   const { register } = useAuth();
 
-  function handleRegisterSubmit(ev) {
+  function handleRegisterSubmit(ev: React.FormEvent<HTMLFormElement>) {
     ev.preventDefault();
-    const formData = new FormData(ev.target);
+    const formData = new FormData(ev.currentTarget);
     const firstName = formData.get("firstName");
     const lastName = formData.get("lastName");
     const email = formData.get("email");
     const username = formData.get("username");
     const password = formData.get("password");
-    const data = { username, email, password, firstName, lastName };
+    const data = {
+      username,
+      email,
+      password,
+      firstName,
+      lastName,
+    };
     register(data);
   }
 

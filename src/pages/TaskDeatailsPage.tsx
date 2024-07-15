@@ -34,19 +34,18 @@ function TaskDetailsPage() {
     return null;
   }
 
-  async function handleEditTask(e) {
+  async function handleEditTask(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.currentTarget);
     const newTitle = formData.get("title");
     const newDescription = formData.get("description");
     const newBody = formData.get("body");
-    const data = { newTitle, newDescription, newBody };
 
     try {
       const { data: updatedTask } = await api.patch(`task/${taskId}`, {
-        title: newTitle === "" ? task.title : newTitle,
-        description: newDescription === "" ? task.description : newDescription,
-        body: newBody === "" ? task.body : newBody,
+        title: newTitle === "" ? task?.title : newTitle,
+        description: newDescription === "" ? task?.description : newDescription,
+        body: newBody === "" ? task?.body : newBody,
       });
       setTask(updatedTask);
       setEditTaskInputs(false);
@@ -57,7 +56,7 @@ function TaskDetailsPage() {
     try {
       const newActivity = {
         operation: "PATCH",
-        description: `${task.title} updated`,
+        description: `${task?.title} updated`,
       };
       await api.post("/activity", newActivity);
     } catch (error) {
@@ -82,7 +81,7 @@ function TaskDetailsPage() {
     try {
       const newActivity = {
         operation: "DELETE",
-        description: `${task.title} deleted`,
+        description: `${task?.title} deleted`,
       };
       await api.post("/activity", newActivity);
     } catch (error) {
@@ -90,10 +89,10 @@ function TaskDetailsPage() {
     }
   }
 
-  async function handlePinnedChange(taskId) {
+  async function handlePinnedChange(taskId: string) {
     try {
       const res = await api.patch(`task/${taskId}`, {
-        isPinned: !task.isPinned,
+        isPinned: !task?.isPinned,
       });
       const updatedTask = res.data;
       setTask(updatedTask);
@@ -101,14 +100,14 @@ function TaskDetailsPage() {
       console.log(error);
     }
     try {
-      const newActivity = task.isPinned
+      const newActivity = task?.isPinned
         ? {
             operation: "Pin removed",
             description: `${task.title} pinned removed`,
           }
         : {
             operation: "Pin",
-            description: `${task.title} - pinned`,
+            description: `${task?.title} - pinned`,
           };
       await api.post("/activity", newActivity);
     } catch (error) {
@@ -116,14 +115,14 @@ function TaskDetailsPage() {
     }
   }
 
-  async function handleTodoChecked(todoId) {
-    const todo = task.todoList.find((todo) => todo._id === todoId);
+  async function handleTodoChecked(todoId: string) {
+    const todo = task?.todoList.find((todo) => todo._id === todoId);
     try {
-      const updatedTodoList = task.todoList.map((todo) =>
+      const updatedTodoList = task?.todoList.map((todo) =>
         todo._id === todoId ? { ...todo, isComplete: !todo.isComplete } : todo
       );
 
-      const res = await api.patch(`task/${task._id}`, {
+      const res = await api.patch(`task/${task?._id}`, {
         todoList: updatedTodoList,
       });
 
@@ -133,14 +132,14 @@ function TaskDetailsPage() {
       console.log(error);
     }
     try {
-      const newActivity = todo.isComplete
+      const newActivity = todo?.isComplete
         ? {
             operation: "UNCHECKED",
-            description: `Task: ${task.title} - ${todo.title} unchecked`,
+            description: `Task: ${task?.title} - ${todo.title} unchecked`,
           }
         : {
             operation: "CHECKED",
-            description: `Task: ${task.title} - ${todo.title} checked`,
+            description: `Task: ${task?.title} - ${todo?.title} checked`,
           };
 
       await api.post("/activity", newActivity);
@@ -149,10 +148,10 @@ function TaskDetailsPage() {
     }
   }
 
-  async function handleDeleteTodo(todoId, taskId) {
-    const todo = task.todoList.find((todo) => todo._id === todoId);
+  async function handleDeleteTodo(todoId: string, taskId: string) {
+    const todo = task?.todoList.find((todo) => todo._id === todoId);
     try {
-      const updatedTodoList = task.todoList.filter(
+      const updatedTodoList = task?.todoList.filter(
         (todo) => todo._id !== todoId
       );
       const res = await api.patch(`task/${taskId}`, {
@@ -166,7 +165,7 @@ function TaskDetailsPage() {
     try {
       const newActivity = {
         operation: "DELETE",
-        description: `Task: ${task.title} - ${todo.title} deleted`,
+        description: `Task: ${task?.title} - ${todo?.title} deleted`,
       };
       await api.post("/activity", newActivity);
     } catch (error) {
@@ -174,12 +173,16 @@ function TaskDetailsPage() {
     }
   }
 
-  async function handleUpdateTodo(e, todoId, taskId) {
-    const todo = task.todoList.find((todo) => todo._id === todoId);
+  async function handleUpdateTodo(
+    e: React.FormEvent<HTMLFormElement>,
+    todoId: string,
+    taskId: string
+  ) {
+    const todo = task?.todoList.find((todo) => todo._id === todoId);
     e.preventDefault();
 
     try {
-      const updatedTodoList = task.todoList.map((todo) =>
+      const updatedTodoList = task?.todoList.map((todo) =>
         todo._id === todoId
           ? {
               ...todo,
@@ -203,7 +206,7 @@ function TaskDetailsPage() {
     try {
       const newActivity = {
         operation: "EDIT",
-        description: `Task: ${task.title} - ${todo.title}'s title changed`,
+        description: `Task: ${task?.title} - ${todo?.title}'s title changed`,
       };
       await api.post("/activity", newActivity);
     } catch (error) {
@@ -211,11 +214,14 @@ function TaskDetailsPage() {
     }
   }
 
-  async function handleCreateTodo(e, taskId) {
+  async function handleCreateTodo(
+    e: React.FormEvent<HTMLFormElement>,
+    taskId: string
+  ) {
     e.preventDefault();
     const newTodo = { title: createNewTodoTitle, isComplete: false };
     try {
-      const updatedTodoList = [...task.todoList, newTodo];
+      const updatedTodoList = [...task!.todoList!, newTodo];
 
       const res = await api.patch(`task/${taskId}`, {
         todoList: updatedTodoList,
@@ -230,7 +236,7 @@ function TaskDetailsPage() {
     try {
       const newActivity = {
         operation: "CREATE",
-        description: `Task: ${task.title} - ${newTodo.title} created`,
+        description: `Task: ${task?.title} - ${newTodo.title} created`,
       };
       await api.post("/activity", newActivity);
     } catch (error) {
@@ -311,13 +317,13 @@ function TaskDetailsPage() {
         <div className="flex gap-4 absolute top-0 right-4">
           <Button
             onClick={handleDelete}
-            variant="outlet"
+            variant="outline"
             className="text-destructive border border-destructive hover:bg-destructive/90"
           >
             <Trash2 className="text-destructive" />
           </Button>
           <Button
-            variant="outlet"
+            variant="outline"
             className="text-destructive border border-primary hover:bg-primary/90"
             onClick={() => setEditTaskInputs(!editTaskInputs)}
           >
