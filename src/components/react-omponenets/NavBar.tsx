@@ -6,14 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Archive, BookOpenText, ListChecks } from "lucide-react";
 
 function NavBar() {
-  const { loggedInUser } = useAuth();
+  const { loggedInUser, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  function TopNavLink(props) {
+  function TopNavLink(props: any) {
     const { href, children } = props;
     return (
       <NavLink
@@ -94,7 +94,7 @@ function NavBar() {
                 <TopNavLink href="/tasks/activity">Activity</TopNavLink>
               </li>
               <Button
-                onClick={() => setModal("logout")}
+                onClick={logout}
                 className="text-xl text-muted font-bold text-white"
                 variant="destructive"
               >

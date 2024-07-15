@@ -4,8 +4,16 @@ import { useAuth } from "@/contexts/AuthContext";
 import api from "@/services/api.service";
 import { useEffect, useState } from "react";
 
+export interface Activity {
+  _id: string;
+  operation: string;
+  description: string;
+  user: string;
+  createdAt: string;
+}
+
 function ActivityPage() {
-  const [activities, setActivities] = useState([]);
+  const [activities, setActivities] = useState<Activity[]>([]);
   const { loggedInUser } = useAuth();
   const [loading, setLoading] = useState(false);
 

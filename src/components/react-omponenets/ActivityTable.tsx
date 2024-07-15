@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Table,
   TableBody,
@@ -8,8 +7,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Activity } from "@/pages/ActivityPage";
 
-function ActivityTable({ activities }) {
+function ActivityTable({ activities }: { activities: Activity[] }) {
   return (
     <Table>
       <TableCaption>A list of your Activity.</TableCaption>
