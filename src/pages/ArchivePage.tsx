@@ -6,7 +6,7 @@ import api from "@/services/api.service";
 import { useEffect, useState } from "react";
 import { Todo } from "./TasksPage";
 
-interface Archive {
+export interface Archive {
   _id: string;
   title: string;
   description: string;
@@ -20,7 +20,7 @@ function ArchivePage() {
   const { loggedInUser } = useAuth();
   const [archives, setArchives] = useState<Archive[]>([]);
   const [loading, setloading] = useState(false);
-  const [deleteModal, setDeleteModal] = useState<boolean>(false);
+  const [deleteModal, setDeleteModal] = useState<boolean | string>(false);
 
   useEffect(() => {
     setloading(true);
@@ -36,7 +36,7 @@ function ArchivePage() {
     getArchives();
   }, []);
 
-  async function deleteArchive(archiveId: string) {
+  async function deleteArchive(archiveId: string | boolean) {
     try {
       await api.delete(`/archive/${archiveId}`);
       setArchives(archives.filter((archive) => archive._id !== archiveId));

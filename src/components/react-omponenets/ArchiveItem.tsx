@@ -1,7 +1,18 @@
+import { Archive } from "@/pages/ArchivePage";
 import { Button } from "../ui/button";
 import { Trash2 } from "lucide-react";
 
-function ArchiveItem({ archive, setDeleteModal, handleReturnToTasks }) {
+interface PropsTypes {
+  archive: Archive;
+  setDeleteModal: React.Dispatch<React.SetStateAction<boolean | string>>;
+  handleReturnToTasks: (archive: Archive, archiveId: String) => Promise<void>;
+}
+
+function ArchiveItem({
+  archive,
+  setDeleteModal,
+  handleReturnToTasks,
+}: PropsTypes) {
   return (
     <li
       className={
