@@ -1,6 +1,7 @@
+import { Task } from "@/pages/TasksPage";
 import TasksList from "./TasksList";
 
-function TasksCards({ loggedInUserTasks }) {
+function TasksCards({ loggedInUserTasks }: { loggedInUserTasks: Task[] }) {
   const pinnedTasks = loggedInUserTasks.filter((task) => task.isPinned);
   const otherTasks = loggedInUserTasks.filter((task) => !task.isPinned);
 

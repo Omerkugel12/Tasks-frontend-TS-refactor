@@ -13,10 +13,10 @@ function TaskDetailsPage() {
   const [task, setTask] = useState<Task | null>(null);
   const { taskId } = useParams();
   const navigate = useNavigate();
-  const [editTodoInput, setEditTodoInput] = useState(null);
-  const [newTodoTitle, setNewTodoTitle] = useState("");
-  const [createNewTodoTitle, setCreateNewTodoTitle] = useState("");
-  const [editTaskInputs, setEditTaskInputs] = useState(false);
+  const [editTodoInput, setEditTodoInput] = useState<boolean | string>(false);
+  const [newTodoTitle, setNewTodoTitle] = useState<string>("");
+  const [createNewTodoTitle, setCreateNewTodoTitle] = useState<string>("");
+  const [editTaskInputs, setEditTaskInputs] = useState<boolean>(false);
 
   useEffect(() => {
     async function fetchTask() {
@@ -198,7 +198,7 @@ function TaskDetailsPage() {
 
       const updatedTask = res.data;
       setTask(updatedTask);
-      setEditTodoInput(null);
+      setEditTodoInput(false);
       setNewTodoTitle("");
     } catch (error) {
       console.log(error);

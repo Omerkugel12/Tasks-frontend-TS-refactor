@@ -11,8 +11,9 @@ import {
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Pin, QrCode } from "lucide-react";
+import { Task } from "@/pages/TasksPage";
 
-function TasksTable({ loggedInUserTasks }) {
+function TasksTable({ loggedInUserTasks }: { loggedInUserTasks: Task[] }) {
   const pinnedTasks = loggedInUserTasks.filter((task) => task.isPinned);
   const otherTasks = loggedInUserTasks.filter((task) => !task.isPinned);
   return (

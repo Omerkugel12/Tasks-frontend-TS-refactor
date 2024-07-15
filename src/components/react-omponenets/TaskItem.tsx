@@ -2,8 +2,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
 import { Pin } from "lucide-react";
+import { Task } from "@/pages/TasksPage";
 
-function TaskItem({ task }) {
+function TaskItem({ task }: { task: Task }) {
   return (
     <li
       className={

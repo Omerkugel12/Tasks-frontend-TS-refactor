@@ -1,7 +1,7 @@
-import React from "react";
 import TaskItem from "./TaskItem";
+import { Task } from "@/pages/TasksPage";
 
-function TasksList({ loggedInUserTasks }) {
+function TasksList({ loggedInUserTasks }: { loggedInUserTasks: Task[] }) {
   return (
     <ul className="flex  flex-wrap gap-4">
       {loggedInUserTasks.map((task) => (
