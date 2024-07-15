@@ -1,5 +1,3 @@
-import { Pencil, Trash2, Vote } from "lucide-react";
-import React from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import TodoItem from "./TodoItem";

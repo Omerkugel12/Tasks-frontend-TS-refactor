@@ -2,7 +2,7 @@ import ActivityTable from "@/components/react-omponenets/ActivityTable";
 import TasksTableSkeleton from "@/components/react-omponenets/TableSkeleton";
 import { useAuth } from "@/contexts/AuthContext";
 import api from "@/services/api.service";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function ActivityPage() {
   const [activities, setActivities] = useState([]);

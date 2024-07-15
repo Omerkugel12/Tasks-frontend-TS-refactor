@@ -68,9 +68,9 @@ export const AuthProvider = ({ children }: childrenPropsType) => {
     fetchUser();
   }, [token]);
 
-  useEffect(() => {
-    if (loggedInUser) navigate("/", { replace: true });
-  }, [loggedInUser]);
+  // useEffect(() => {
+  //   if (loggedInUser) navigate("/", { replace: true });
+  // }, [loggedInUser]);
 
   function logout() {
     setToken(null);

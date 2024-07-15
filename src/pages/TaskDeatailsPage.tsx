@@ -7,17 +7,16 @@ import { Pencil, Pin, PinOff, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
+import { Task } from "./TasksPage";
 
 function TaskDetailsPage() {
-  const [task, setTask] = useState(null);
+  const [task, setTask] = useState<Task | null>(null);
   const { taskId } = useParams();
   const navigate = useNavigate();
-  const { setModal } = useModalContext();
   const [editTodoInput, setEditTodoInput] = useState(null);
   const [newTodoTitle, setNewTodoTitle] = useState("");
   const [createNewTodoTitle, setCreateNewTodoTitle] = useState("");
   const [editTaskInputs, setEditTaskInputs] = useState(false);
-  // const [deleteModal, setDeleteModal] = useState(false);
 
   useEffect(() => {
     async function fetchTask() {
@@ -51,20 +50,8 @@ function TaskDetailsPage() {
       });
       setTask(updatedTask);
       setEditTaskInputs(false);
-      {
-        newTitle || newDescription || newBody
-          ? setModal("successEditTask")
-          : null;
-      }
-      setTimeout(() => {
-        setModal(null);
-      }, 4000);
     } catch (error) {
       console.log(error);
-      setModal("failureEditTask");
-      setTimeout(() => {
-        setModal(null);
-      }, 4000);
     }
 
     try {
@@ -88,16 +75,8 @@ function TaskDetailsPage() {
 
     try {
       await api.post("/archive", task);
-      setModal("successCreateArchive");
-      setTimeout(() => {
-        setModal(null);
-      }, 4000);
     } catch (error) {
       console.log(error);
-      setModal("failureCreateArchive");
-      setTimeout(() => {
-        setModal(null);
-      }, 4000);
     }
 
     try {
@@ -117,21 +96,9 @@ function TaskDetailsPage() {
         isPinned: !task.isPinned,
       });
       const updatedTask = res.data;
-      setTask((prevTask) => ({ ...prevTask, isPinned: updatedTask.isPinned }));
-      {
-        task.isPinned ? setModal("successUnPinned") : setModal("successPinned");
-      }
-      setTimeout(() => {
-        setModal(null);
-      }, 4000);
+      setTask(updatedTask);
     } catch (error) {
       console.log(error);
-      {
-        task.isPinned ? setModal("failureUnPinned") : setModal("failurePinned");
-      }
-      setTimeout(() => {
-        setModal(null);
-      }, 4000);
     }
     try {
       const newActivity = task.isPinned
@@ -162,21 +129,8 @@ function TaskDetailsPage() {
 
       const updatedTask = res.data;
       setTask(updatedTask);
-
-      {
-        todo.isComplete
-          ? setModal("successTodoUnchecked")
-          : setModal("successTodoChecked");
-      }
-      setTimeout(() => {
-        setModal(null);
-      }, 4000);
     } catch (error) {
       console.log(error);
-      setModal("failureTodoUnchecked");
-      setTimeout(() => {
-        setModal(null);
-      }, 4000);
     }
     try {
       const newActivity = todo.isComplete
@@ -206,16 +160,8 @@ function TaskDetailsPage() {
       });
       const updatedTask = res.data;
       setTask(updatedTask);
-      setModal("successTodoDelete");
-      setTimeout(() => {
-        setModal(null);
-      }, 4000);
     } catch (error) {
       console.log(error);
-      setModal("failureTodoDelete");
-      setTimeout(() => {
-        setModal(null);
-      }, 4000);
     }
     try {
       const newActivity = {
@@ -251,20 +197,8 @@ function TaskDetailsPage() {
       setTask(updatedTask);
       setEditTodoInput(null);
       setNewTodoTitle("");
-      {
-        newTodoTitle !== "" && setModal("successEditTodo");
-      }
-      setTimeout(() => {
-        setModal(null);
-      }, 4000);
     } catch (error) {
       console.log(error);
-      {
-        newTodoTitle !== "" && setModal("failureEditTodo");
-      }
-      setTimeout(() => {
-        setModal(null);
-      }, 4000);
     }
     try {
       const newActivity = {
@@ -290,20 +224,8 @@ function TaskDetailsPage() {
       const updatedTask = res.data;
       setTask(updatedTask);
       setCreateNewTodoTitle("");
-      {
-        createNewTodoTitle !== "" && setModal("successCreateTodo");
-      }
-      setTimeout(() => {
-        setModal(null);
-      }, 4000);
     } catch (error) {
       console.log(error);
-      {
-        createNewTodoTitle !== "" && setModal("failureCreateTodo");
-      }
-      setTimeout(() => {
-        setModal(null);
-      }, 4000);
     }
     try {
       const newActivity = {

@@ -1,20 +1,11 @@
-import React from "react";
 import { Button } from "../ui/button";
 import { Trash2 } from "lucide-react";
 
-function ArchiveItem({
-  modal,
-  deleteModal,
-  archive,
-  setDeleteModal,
-  handleReturnToTasks,
-}) {
+function ArchiveItem({ archive, setDeleteModal, handleReturnToTasks }) {
   return (
     <li
       className={
-        modal === "logout" || deleteModal
-          ? "relative flex flex-col border border-ring p-2 overflow-scroll min-w-[300px] w-80 h-40  bg-slate-700 opacity-70 rounded-lg shadow-2xl space-y-4"
-          : "relative flex flex-col border border-ring p-2 overflow-scroll min-w-[300px] w-80 h-40 overflow-x-visible bg-secondary rounded-lg shadow-2xl space-y-4"
+        "relative flex flex-col border border-ring p-2 overflow-scroll min-w-[300px] w-80 h-40 overflow-x-visible bg-secondary rounded-lg shadow-2xl space-y-4"
       }
     >
       <div>

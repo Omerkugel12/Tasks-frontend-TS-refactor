@@ -9,17 +9,14 @@ import TasksLayout from "./layouts-pages/TasksLayout";
 import { useAuth } from "./contexts/AuthContext";
 import AboutPage from "./pages/AboutPage";
 import NavBar from "./components/react-omponenets/NavBar";
-import Modal from "./components/ui/Modal";
 import CreateTaskPage from "./pages/CreateTaskPage";
-import { Button } from "./components/ui/button";
 import Footer from "./components/react-omponenets/Footer";
 import ActivityPage from "./pages/ActivityPage";
 import ArchivePage from "./pages/ArchivePage";
 import React from "react";
 
 function App() {
-  const { loggedInUser } = useAuth();
-  const { logout } = useAuth();
+  const { loggedInUser, logout } = useAuth();
 
   function ProtectedLoggedInRoute({ children }: { children: React.ReactNode }) {
     // in real world, loggedInUser will consume from AuthContext

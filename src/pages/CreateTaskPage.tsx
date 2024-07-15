@@ -24,13 +24,8 @@ function CreateTaskPage() {
       const newTask = await api.post("/task", data);
 
       navigate("/tasks");
-      setModal("successCreateTask");
-      setTimeout(() => {
-        setModal(null);
-      }, 4000);
     } catch (error) {
       console.log(error);
-      setModal("failureCreateTask");
     }
     try {
       const newActivity = {

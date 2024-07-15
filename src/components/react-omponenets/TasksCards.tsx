@@ -1,5 +1,3 @@
-import { useLoggedInUserTasks } from "@/contexts/loggedInUserTasksContext";
-import React from "react";
 import TasksList from "./TasksList";
 
 function TasksCards({ loggedInUserTasks }) {

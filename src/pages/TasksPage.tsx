@@ -10,9 +10,29 @@ import TasksCards from "@/components/react-omponenets/TasksCards";
 import TasksTableSkeleton from "@/components/react-omponenets/TableSkeleton";
 import CardsSkeleton from "@/components/react-omponenets/CardsSkeleton";
 
+export interface Todo {
+  _id: string;
+  title: string;
+  isComplete: boolean;
+}
+
+export interface Task {
+  _id: string;
+  title: string;
+  description: string;
+  body: string;
+  todoList: Todo[];
+  isPinned: boolean;
+  user: string;
+}
+
+type TasksStateType = Task[];
+
 function TasksPage() {
   const { loggedInUser } = useAuth();
-  const { loggedInUserTasks, setLoggedInUserTasks } = useState([]);
+  const [loggedInUserTasks, setLoggedInUserTasks] = useState<TasksStateType>(
+    []
+  );
   const [display, setDisplay] = useState("cards");
   const [loading, setLoading] = useState(false);
 

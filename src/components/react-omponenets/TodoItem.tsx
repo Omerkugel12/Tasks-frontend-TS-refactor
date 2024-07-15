@@ -1,4 +1,3 @@
-import React from "react";
 import { Pencil, Trash2, Vote, X } from "lucide-react";
 import { Input } from "../ui/input";
 

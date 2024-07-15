@@ -3,13 +3,12 @@ import CardsSkeleton from "@/components/react-omponenets/CardsSkeleton";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import api from "@/services/api.service";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function ArchivePage() {
   const { loggedInUser } = useAuth();
   const [archives, setArchives] = useState([]);
   const [loading, setloading] = useState(false);
-  const { modal, setModal } = useModalContext();
   const [deleteModal, setDeleteModal] = useState(false);
 
   useEffect(() => {
@@ -31,32 +30,16 @@ function ArchivePage() {
       await api.delete(`/archive/${archiveId}`);
       setArchives(archives.filter((archive) => archive._id !== archiveId));
       setDeleteModal(false);
-      setModal("successDelete");
-      setTimeout(() => {
-        setModal(null);
-      }, 4000);
     } catch (error) {
       console.log(error);
-      setModal("failureDelete");
-      setTimeout(() => {
-        setModal(null);
-      }, 4000);
     }
   }
 
   async function handleReturnToTasks(archive, archiveId) {
     try {
       await api.post("/task", archive);
-      setModal("successReturn");
-      setTimeout(() => {
-        setModal(null);
-      }, 4000);
     } catch (error) {
       console.log(error);
-      setModal("failureReturn");
-      setTimeout(() => {
-        setModal(null);
-      }, 4000);
     }
 
     try {
@@ -95,8 +78,6 @@ function ArchivePage() {
           </h1>
           <ArchivesList
             archives={archives}
-            modal={modal}
-            setModal={setModal}
             deleteModal={deleteModal}
             setDeleteModal={setDeleteModal}
             handleReturnToTasks={handleReturnToTasks}
