@@ -1,13 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
 import api from "@/services/api.service";
 import { X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-// import { Todo } from "./TasksPage";
 
 function CreateTaskPage() {
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   interface TodowithoutId {
     title: string;
@@ -30,8 +31,10 @@ function CreateTaskPage() {
 
     try {
       await api.post("/task", data);
-
       navigate("/tasks");
+      toast({
+        title: "Task added succesfully!",
+      });
     } catch (error) {
       console.log(error);
     }
