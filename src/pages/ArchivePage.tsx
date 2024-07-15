@@ -4,12 +4,23 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import api from "@/services/api.service";
 import { useEffect, useState } from "react";
+import { Todo } from "./TasksPage";
+
+interface Archive {
+  _id: string;
+  title: string;
+  description: string;
+  body: string;
+  todoList: Todo[];
+  isPinned: boolean;
+  user: string;
+}
 
 function ArchivePage() {
   const { loggedInUser } = useAuth();
-  const [archives, setArchives] = useState([]);
+  const [archives, setArchives] = useState<Archive[]>([]);
   const [loading, setloading] = useState(false);
-  const [deleteModal, setDeleteModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState<boolean>(false);
 
   useEffect(() => {
     setloading(true);
@@ -25,7 +36,7 @@ function ArchivePage() {
     getArchives();
   }, []);
 
-  async function deleteArchive(archiveId) {
+  async function deleteArchive(archiveId: string) {
     try {
       await api.delete(`/archive/${archiveId}`);
       setArchives(archives.filter((archive) => archive._id !== archiveId));
@@ -35,7 +46,7 @@ function ArchivePage() {
     }
   }
 
-  async function handleReturnToTasks(archive, archiveId) {
+  async function handleReturnToTasks(archive: Archive, archiveId: String) {
     try {
       await api.post("/task", archive);
     } catch (error) {

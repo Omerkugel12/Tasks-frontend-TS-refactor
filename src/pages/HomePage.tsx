@@ -18,7 +18,7 @@ function HomePage() {
         {!loggedInUser && (
           <div className="space-y-4">
             <Link to="/auth/login">
-              <Button variant="primary" className="w-48">
+              <Button variant="ghost" className="w-48">
                 Login
               </Button>
             </Link>
@@ -114,7 +114,7 @@ function HomePage() {
           </p>
           {!loggedInUser && (
             <Link to="/auth/register">
-              <Button variant="primary" className="w-48">
+              <Button variant="ghost" className="w-48">
                 Get Started
               </Button>
             </Link>

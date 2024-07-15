@@ -4,24 +4,32 @@ import { Label } from "@/components/ui/label";
 import api from "@/services/api.service";
 import { X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+// import { Todo } from "./TasksPage";
 
 function CreateTaskPage() {
   const navigate = useNavigate();
 
-  async function handleCreateTask(ev) {
+  interface TodowithoutId {
+    title: string;
+    isComplete: boolean;
+  }
+
+  async function handleCreateTask(ev: React.FormEvent<HTMLFormElement>) {
     ev.preventDefault();
-    const formData = new FormData(ev.target);
-    const title = formData.get("title");
-    const description = formData.get("description");
-    const body = formData.get("body");
-    const todoList = formData
-      .get("todos")
-      .split(", ")
-      .map((todo) => ({ title: todo.trim() }));
+    const formData = new FormData(ev.currentTarget);
+    const title = formData.get("title") as string;
+    const description = formData.get("description") as string;
+    const body = formData.get("body") as string;
+    const todosString = formData.get("todos") as string;
+    const todoTitles = todosString.split(", ").map((todo) => todo.trim());
+    const todoList: TodowithoutId[] = todoTitles.map((title) => ({
+      title,
+      isComplete: false,
+    }));
     const data = { title, description, body, todoList };
 
     try {
-      const newTask = await api.post("/task", data);
+      await api.post("/task", data);
 
       navigate("/tasks");
     } catch (error) {
